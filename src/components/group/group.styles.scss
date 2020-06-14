@@ -1,0 +1,88 @@
+.group-container {
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+
+   .group-content{
+      display: flex;
+      flex-direction: column;
+      padding-left: 2em;
+      padding-right: 2em;
+      width: 100%;
+
+      .group-subtitles-container {
+         display: flex;
+         .friend-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20%;
+         }
+         .vocabulary-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+         }
+      }
+
+      .group-content-container {
+           display: flex;
+          .friends-list-container {
+             display: flex;
+             align-items: center;
+             flex-direction: column;
+             width: 20%;
+             height: 30em;
+             .friends-list {
+                padding-top: 1em;
+                display: flex;
+                flex-direction: column;
+                overflow-y: scroll;
+             }
+          }
+          .vocab-list-container {
+             display: flex;
+             width: 80%;
+             height: 30em;
+             .vocab-list {
+                display: flex;
+                align-items: flex-start;
+                flex-wrap: wrap;
+                overflow-y: scroll;
+             }
+          }
+      }
+
+      .group-wit-container {
+         display: flex;
+         margin-top: 2em;
+         background-color: burlywood;
+
+         .wit-robot {
+            width: 10%;
+            height: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: blue;
+         }
+         .wit-micro {
+            width: 10%;
+            height: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: blue;
+         }
+         .wit-results {
+            width: 80%;
+            height: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: blue;
+         }
+      }
+   }
+}

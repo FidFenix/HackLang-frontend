@@ -1,0 +1,62 @@
+.home-page {
+  display: flex;
+  position: fixed;
+  background-image: url("../../assets/wall.jpg");
+  height:100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .buttons-container {
+    flex-direction: column;
+    display: flex;
+    /*align-items: center;*/
+    margin-top: 9em;
+    margin-left: 3em;
+    width: 50%;
+    & :last-child {
+      margin-top: 9em;
+    }
+    .btn{
+      width: 9em;
+      height: 3em;
+      background: none;
+      border: 4px solid;
+      color: #c0f11e;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-size: 24px;
+      position: relative;
+    }
+    
+    .btn::before,.btn::after{
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 5px;
+      background: #034b45;
+      transform: skewX(50deg);
+      transition: .4s linear;
+    }
+    
+    .btn::before{
+      top: -4px;
+      left: 10%;
+    }
+    
+    .btn::after{
+      bottom: -4px;
+      right: 10%;
+    }
+    
+    .btn:hover::before{
+      left: 80%;
+    }
+    
+    .btn:hover::after{
+      right: 80%;
+    }
+  }
+}
