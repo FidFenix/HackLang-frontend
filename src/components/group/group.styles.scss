@@ -8,7 +8,7 @@
       flex-direction: column;
       padding-left: 2em;
       padding-right: 2em;
-      width: 100%;
+      width: 96%;
 
       .group-subtitles-container {
          display: flex;
@@ -34,7 +34,7 @@
              align-items: center;
              flex-direction: column;
              width: 20%;
-             height: 30em;
+             height: 25em;
              .friends-list {
                 padding-top: 1em;
                 display: flex;
@@ -45,7 +45,7 @@
           .vocab-list-container {
              display: flex;
              width: 80%;
-             height: 30em;
+             height: 25em;
              .vocab-list {
                 display: flex;
                 align-items: flex-start;
@@ -56,37 +56,6 @@
                 }
              }
           }
-      }
-
-      .group-wit-container {
-         display: flex;
-         margin-top: 2em;
-         background-color: burlywood;
-
-         .wit-robot {
-            width: 10%;
-            height: 10%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: blue;
-         }
-         .wit-micro {
-            width: 10%;
-            height: 10%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: blue;
-         }
-         .wit-results {
-            width: 80%;
-            height: 10%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: blue;
-         }
       }
    }
 }

@@ -3,6 +3,7 @@ import './group.styles.scss';
 import FriendItem from '../friend-item/friend-item.component';
 import VocabListItem from '../vocab-list-item/vocab-list-item.component';
 import WordItem from '../word-item/word-item.component';
+import WitAiComp from '../witai/witai.component';
 
 class GroupComp extends Component {
 
@@ -499,18 +500,7 @@ class GroupComp extends Component {
                        </div>
                     </div>
                </div>
-               <div className = 'group-wit-container'>
-                  <div className = 'wit-robot'>
-                     <h3>Wit</h3>
-                  </div>
-                  <div className = 'wit-micro'>
-                     <h3>micro</h3>
-                  </div>
-                  <div className = 'wit-results'>
-                     
-                     <h3>Summary</h3>
-                  </div>
-               </div>
+               <WitAiComp/>
             </div>
          </div>
       )
