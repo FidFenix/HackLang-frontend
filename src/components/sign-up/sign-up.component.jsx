@@ -1,16 +1,24 @@
 import React, {Component} from 'react';
-
+import Select from 'react-select';
+import countryList from 'react-select-country-list';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-
+import { authenticationService } from '../../services/user/auth.service';
+import { connect } from 'react-redux';
+import { setCurrentUser } from './../../redux/user/user.actions';
 import './sign-up.styles.scss';
+
 
 class SignUp extends Component {
     constructor(props){
         super(props);
+        this.optionsCountry = countryList().getData()
         this.state = {
-            displayName: '',
+            fullName: '',
             email: '',
+            countriesList: this.optionsCountry,
+            country: '',
+            language: '',
             password: '',
             confirmPassword:''
         }
@@ -18,33 +26,39 @@ class SignUp extends Component {
 
     handleSubmit = async event=> {
         event.preventDefault();
-        const {displayName, email, password, confirmPassword} = this.state;
+        const {fullName, email, country, password, confirmPassword, language} = this.state;
 
         if (password !== confirmPassword) {
-            alert("password dont match");
+            alert("password do not match");
             return;
         }
-        const { signUpStart } = this.props;
-        signUpStart(email, password, displayName);
-        /*
-        ALL THIS CODE INTO REDUX SAGA
+        //authenticationService.signup(fullName, email, country.label, language, password);
+        //return {};
+        //console.log(fullName, email, country.label, language, password);
+        //const { signUpStart } = this.props;
+        //signUpStart(email, password, displayName);
+        
+        //ALL THIS CODE INTO REDUX SAGA
         try {
-            const { user } = await auth.createUserWithEmailAndPassword(
-                email,
+            const user = await authenticationService.signup(
+                fullName, 
+                email, 
+                country.label, 
+                language, 
                 password
             );
-
-            await createUserProfileDocument(user, {displayName});
+            
+            this.props.setCurrentUser(user.name? user:undefined);
 
             this.setState({
-                displayName: '',
+                fullName: '',
                 email: '',
                 password: '',
                 confirmPassword: ''
             })
         }catch(error) {
             console.log(error);
-        }*/
+        }
     };
 
     handleChange = event => {
@@ -52,8 +66,12 @@ class SignUp extends Component {
         this.setState({[name]: value});
     }
 
+    changeHandler = (country) => {
+        this.setState({ country: country , language: country.value})
+    }
+
     render() {
-        const {displayName, email, password, confirmPassword} = this.state;
+        const {fullName, email, country,countriesList ,password, confirmPassword} = this.state;
         return(
             <div className='sign-up'>
                 <h2 className='title'>I do not have an account</h2>
@@ -61,18 +79,24 @@ class SignUp extends Component {
                 <form className='sign-up-form' onSubmit={this.handleSubmit}>
                     <FormInput
                         type = 'text'
-                        name = 'displayName'
-                        value = {displayName}
+                        name = 'fullName'
+                        value = {fullName}
                         onChange={this.handleChange}
-                        label='Display Name'
+                        label='Full Name'
                         required
+                    />
+                    <Select
+                        options = {countriesList}
+                        value = {country}
+                        placeholder = 'My country'
+                        onChange = {this.changeHandler}
                     />
                     <FormInput
                         type = 'email'
                         name = 'email'
                         value = {email}
                         onChange={this.handleChange}
-                        label='label'
+                        label='Email'
                         required
                     />
                     <FormInput
@@ -99,4 +123,8 @@ class SignUp extends Component {
     }
 }
 
-export default SignUp;
+const mapDispatchToProps = (dispatch) => ({
+    setCurrentUser: (user) => dispatch(setCurrentUser(user))
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);

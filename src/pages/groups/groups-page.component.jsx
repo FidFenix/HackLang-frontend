@@ -20,6 +20,7 @@ class GroupPageComp extends Component {
                   component = { SingleGroupPageComp }
                >              
                </Route>
+               <h1>My Languages</h1>
                <Route
                   exact path = {`${match.path}`}
                   render = {() => <DirectoryGroupComp {...this.props}/>}

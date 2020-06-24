@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-
 import MicRecorder from 'mic-recorder-to-mp3';
 import witai from './../../assets/witai.jpg';
-
+import { witaiService } from './../../services/witai/witai.service';
 import './witai.styles.scss';
+
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
@@ -16,6 +16,7 @@ class WitAiComp extends Component {
          blobURL: '',
          isBlocked: false,
          speechToText: 'Hallo, wie geth\'s',
+         bufferObj:undefined,
       }
    }
 
@@ -44,15 +45,27 @@ class WitAiComp extends Component {
       }
    };
 
-   stop = () => {
-      Mp3Recorder
+   stop = async () => {
+      await Mp3Recorder
         .stop()
         .getMp3()
         .then(([buffer, blob]) => {
           const blobURL = URL.createObjectURL(blob)
-          this.setState({ blobURL, isRecording: false });
+          this.setState({ blobURL, isRecording: false, bufferObj: blob });
+
         }).catch((e) => console.log(e));
+        this.transformMethod(this.state.bufferObj);
    };
+
+   getNameFromBlobUrl() {
+      return this.state.blobURL.split('/')[3];
+   }
+
+   transformMethod = async (data) => {
+      const res = await witaiService.speechApi( data, this.getNameFromBlobUrl());
+      this.setState({ speechToText: res.text});
+   }
+
    render() {
       const { speechToText } = this.state;
       return(

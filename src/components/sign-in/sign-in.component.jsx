@@ -1,8 +1,13 @@
-import React, {Component} from 'react';
+
+import React, { Component } from 'react';
 
 import './sign-in.styles.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
+import { connect } from 'react-redux';
+import { setCurrentUser } from './../../redux/user/user.actions';
+
+import { authenticationService } from '../../services/user/auth.service';
 
 class SignIn extends Component {
     constructor(props) {
@@ -17,10 +22,15 @@ class SignIn extends Component {
     handleSubmit = async event=> {
         event.preventDefault(); // to prevent submitting
 
-        const { emailSignInStart } = this.props;
+        const { setCurrentUser } = this.props;
         const { email, password } = this.state;
 
-        emailSignInStart(email, password);
+        try {
+            const user = await authenticationService.login(email, password);
+            setCurrentUser(user.name? user:undefined);
+        }catch(error) {
+            console.log(error);
+        }
 
     }
 
@@ -54,10 +64,6 @@ class SignIn extends Component {
                     ></FormInput>
                     <div className='buttons'>
                         <CustomButton type="submit">Sign In</CustomButton>
-                        <CustomButton 
-                            type ='button'
-                            onClick={ ()=>  alert('Facebook') }
-                            >Sign in with Facebook</CustomButton>
                     </div>
                 </form>
             </div>
@@ -65,4 +71,8 @@ class SignIn extends Component {
     }
 }
 
-export default SignIn;
+const mapDispatchToProps = (dispatch) => ({
+    setCurrentUser: (user) => dispatch(setCurrentUser(user))
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);

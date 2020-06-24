@@ -8,16 +8,58 @@
   background-repeat: no-repeat;
   background-size: cover;
 
-  .buttons-container {
+  .left-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50vh;
+    margin-left: 13vw;
+    width: 50%;
+    @media (max-width: 900px) {
+        width: 0%;
+    }
+  }
+
+  .right-container {
     flex-direction: column;
     display: flex;
     /*align-items: center;*/
-    margin-top: 9em;
-    margin-left: 3em;
+    margin-top: 10vh;
+    margin-left: 10vw;
     width: 50%;
     & :last-child {
-      margin-top: 9em;
+      margin-top: 20vh;
     }
+    .sheet-paper {
+      text-decoration:none;
+      color:rgb(24, 11, 100);
+      font-size: 18px;
+      background:#ffc;
+      display:block;
+      height:8vh;
+      width:10vw;
+      padding:1em;
+      -webkit-transform:rotate(-6deg);
+      -o-transform:rotate(-6deg);
+      -moz-transform:rotate(-6deg);
+      -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+      -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+      box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+      -moz-transition:-moz-transform .15s linear;
+      -o-transition:-o-transform .15s linear;
+      -webkit-transition:-webkit-transform .15s linear;
+      cursor: pointer;
+      &:hover{
+        -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+        -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+        box-shadow:10px 10px 7px rgba(0,0,0,.7);
+        -webkit-transform: scale(1.25);
+        -moz-transform: scale(1.25);
+        -o-transform: scale(1.25);
+        position:relative;
+        z-index:5;
+      }
+    }
+
     .btn{
       width: 9em;
       height: 3em;

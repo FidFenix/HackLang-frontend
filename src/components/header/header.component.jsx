@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import {ReactComponent as Logo} from '../../assets/crown.svg';
+import { ReactComponent as Logo } from '../../assets/crown.svg';
 
+import { connect } from 'react-redux';
+import { createStructuredSelector} from 'reselect';
+import { setCurrentUser } from './../../redux/user/user.actions';
+import { selectCurrentUser } from './../../redux/user/user.selectors';
 import './header.styles.scss';
 
+//                        style={{background:`url(${this.props.currentUserpicture.url})`}}
 class HeaderComp extends Component {
-
-   constructor(props) {
-      super(props);
-
-      this.state = {
-         currentUser: true,
-      }
-   }
 
    render() {
       return(
@@ -24,33 +21,39 @@ class HeaderComp extends Component {
             <div className = 'options'>
                <Link className = 'option' to = '/'>Home</Link>
                {
-                  this.state.currentUser?
+                  this.props.currentUser?
                   <Link className = 'option' to = '/groups'>Groups</Link>
                   :
                   null
                }
                {
-                  this.state.currentUser?
-                  <Link className = 'option' to = '/stories'>Stories</Link>
-                  :
-                  null
-               }
-               {
-                  this.state.currentUser?
-                  <div className = 'option' onClick = {()=> alert('log out')}>Log out</div>
+                  this.props.currentUser?
+                  <div className = 'option' onClick = {()=> this.props.setCurrentUser(undefined)}>Log out</div>
                   :
                   <Link className = 'option' to = '/signin'>Log in</Link>
                }
-               {
-                  this.state.currentUser?
-                  <div><h1>Holi</h1></div>
+               {/*
+                  this.props.currentUser?
+                  <div className = 'user-picture'
+                  style={{background:`url(${this.props.currentUser.picture.data.url})`}}
+                  >
+                  </div>
                   :
-                  null
+                  null*/
                }
             </div>
+
          </div>
       )
    }
 }
 
-export default HeaderComp;
+const mapStateToProps = createStructuredSelector({
+   currentUser: selectCurrentUser
+});
+
+const mapDispatchToProps = (dispatch) => ({
+   setCurrentUser: user => dispatch(setCurrentUser(user)) 
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderComp);
