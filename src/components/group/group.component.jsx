@@ -445,17 +445,22 @@ class GroupComp extends Component {
    showListVocabulary = () => {
       this.setState({vocabularyListIdToShow: undefined});
    }
+
+   capitalize = (s) => {
+      if (typeof s !== 'string') return ''
+      return s.charAt(0).toUpperCase() + s.slice(1)
+   }
    render() {
       const { match } = this.props;
-      const title = match.params.langId
+      const title = this.capitalize(match.params.langId);
       const { friends_list, vocab_list, vocabularyListIdToShow } = this.state;
       return(
          <div className = 'group-container'>
-            <h1>{title}</h1>
+            <h1>{title} Group</h1>
             <div className = 'group-content'>
                <div className = 'group-subtitles-container'>
                   <div className = 'friend-title'>
-                     <h2>Friends List</h2>
+                     <h2>Group List Members</h2>
                   </div>
                   <div className = 'vocabulary-title'>
                      {
@@ -464,11 +469,15 @@ class GroupComp extends Component {
                         :
                         <div>
                            <h2 style={{'textAlign':'left', 'float':'left'}}>Words </h2>
-                           <h2 style={{'textAlign':'right', 'float':'right', 'cursor': 'pointer'}}
+                           <h3 style={{'textAlign':'right', 
+                                       'float':'right', 
+                                       'cursor': 'pointer',
+                                       'margin-left': '30vw'
+                                     }}
                                onClick = {this.showListVocabulary}
                            >
-                           &laquo; Vocabulary List
-                           </h2>
+                           &laquo; Back to vocabulary list
+                           </h3>
                         </div>
                      }
                   </div>

@@ -15,8 +15,13 @@ class WitAiComp extends Component {
          isRecording: false,
          blobURL: '',
          isBlocked: false,
-         speechToText: 'Hallo, wie geth\'s',
+         speechToText: undefined,
          bufferObj:undefined,
+         robotAction: 'Speak',
+         allRecognition: undefined,
+         intentQuery: undefined,
+         vocabWord: undefined,
+         answerWitai: undefined,
       }
    }
 
@@ -61,26 +66,80 @@ class WitAiComp extends Component {
       return this.state.blobURL.split('/')[3];
    }
 
+   reocgnizeParams = (data)=> {
+
+   }
    transformMethod = async (data) => {
-      const res = await witaiService.speechApi( data, this.getNameFromBlobUrl());
-      this.setState({ speechToText: res.text});
+      const allRecognition = await witaiService.speechApi( data, this.getNameFromBlobUrl());
+
+      if(allRecognition.text) {
+
+         if(allRecognition.intents[0].name === 'get_single_vocab_EN'){
+            if(allRecognition.entities['query_lan_ES:query_lan_ES']) {
+               if(allRecognition.entities['query_single_vocab_EN:query_single_vocab_EN']){
+                  const palabras = allRecognition.entities['query_single_vocab_EN:query_single_vocab_EN'];
+                  console.log(palabras);
+                  for(let i = 0; i < palabras.length; i++) {
+                     let h = palabras[i].body.split(' ');
+                     if(h.length === 1) {
+                        if(h[0] === 'dog'){
+                           const as = h[0] +' es El perro (sing), Los perros(plu)';
+                           this.setState({ answerWitai: as});
+                           break;
+                        }
+                        if(h[0] === 'family') {
+                           const as = h[0] +' es La familia (sing), Las familias(plu)';
+                           this.setState({ answerWitai: as});
+                           break;
+                        }
+                     }
+                  }
+               }
+            }
+         }else {
+               console.log('hola');
+         }
+      this.setState({ speechToText: allRecognition.text, allRecognition});
+      }else {
+         this.setState({ speechToText: undefined, allRecognition:undefined});
+      }
+   }
+
+   changeRobotAction = () => {
+      console.log('adad')
+      if(this.state.robotAction ==='Speak'){
+         this.setState({robotAction: 'Write'});
+      }else {
+         this.setState({robotAction: 'Speak'});
+      }
    }
 
    render() {
-      const { speechToText } = this.state;
+      const { speechToText, isRecording, robotAction, vocabWord, answerWitai} = this.state;
       return(
          <div className = 'group-wit-container'>
-            <div className = 'wit-robot'>
+            <div className = 'wit-robot'>vocabWord
                <img className = 'robot' src = {witai} alt='robot Wit.ai'></img>
+               <button className = 'robot-action' onClick = {this.changeRobotAction}>{robotAction}</button>
             </div>
             <div className = 'wit-micro'>
                <audio src={this.state.blobURL} controls="controls" />
-               <button onClick={this.start} disabled={this.state.isRecording}>
-               Record
-               </button>
-               <button onClick={this.stop} disabled={!this.state.isRecording}>
-               Stop
-               </button>
+               {
+                  !isRecording?
+                  <button className='button-record' onClick={this.start} disabled={isRecording}>
+                  Record
+                  </button>
+                     :
+                     null
+               }
+               {
+                  isRecording?
+                  <button className='button-stop' onClick={this.stop} disabled={!isRecording}>
+                  Stop
+                  </button>
+                  :
+                  null
+               }
             </div>
             <div className = 'wit-results'>
                <h3>Audio To Text <span>(Results)</span></h3>
@@ -88,8 +147,10 @@ class WitAiComp extends Component {
                {
                   speechToText?
                     <div className = 'wit-text'>
-                      <span className = "results-text">{speechToText}</span>
-                      <button > Save </button>
+                      <div>
+                      <span className = "results-text">Sppech: {speechToText}</span></div>
+               <span className = "results-text">Answer: {answerWitai}</span>
+                      <button className='button-save'> Save </button>
                     </div>
                   :
                      null

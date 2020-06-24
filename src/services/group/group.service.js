@@ -2,19 +2,15 @@
 import config from '../config';
 import axios from 'axios';
 
-export const authenticationService = {
-    login,
-    signup,
+export const groupService = {
+    createGroup,
+    getGroups,
 };
 
-function login(username, password) {
-
-    /*const requestOptions = {
-        headers: { Authorization: "Basic " + btoa(username + ":" + password)}
-    };*/
-    //return {name:"Fidel Mamani", email:"fid.mamani@gmail.com", country:"Peru", "language":"Pe"};
-    return axios.post(`${config.awsApiUrl}/login/`, {username, password },{'Content-Type': 'application/json' }).then(user => {
-        return user.data;
+function createGroup(group_name, group_admin, group_lan, group_link) {
+    return axios.post(`${config.awsApiUrl}/groupuser/`, {group_name, group_admin, group_lan, group_link},{'Content-Type': 'application/json' }).then(group => {
+       console.log(group);
+        return group.data;
     }).catch(error => {
         if( "response" in error ){
             if( error.response !== undefined ){
@@ -29,10 +25,11 @@ function login(username, password) {
     });
 }
 
-function signup( name, email, country, language, password ) {
+function getGroups( email ) {
 
-    return axios.post(`${config.awsApiUrl}/user/`, { name, email, country, language, password} , {'Content-Type': 'application/json' } ).then(user => {
-        return user.data;
+    return axios.get(`${config.awsApiUrl}/groupuser/${email}`, { params: { email } } ).then(groups => {
+       console.log(groups)
+        return groups.data;
     }).catch(error => {
         console.log('error');
         if( "response" in error ){

@@ -7,10 +7,22 @@
          .wit-robot {
             width: 15%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             .robot {
                width: 60%;
+            }
+            .robot-action {
+               background-color: #e7e7e7; color: black;; /* Green */
+               border: none;
+               color: black;
+               margin-left: 1vw;
+               padding: 15px 32px;
+               text-align: center;
+               text-decoration: none;
+               display: inline-block;
+               font-size: 16px;   
             }
          }
          .wit-micro {
@@ -20,7 +32,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgb(197, 182, 44);
+            border-style: groove;
+
+            .button-record {
+                  background-color: #008CBA; /* Green */
+                  border: none;
+                  color: white;
+                  margin-left: 1vw;
+                  padding: 15px 32px;
+                  text-align: center;
+                  text-decoration: none;
+                  display: inline-block;
+                  font-size: 16px;
+            }
+            .button-stop {
+               background-color: #f44336; /* Green */
+               border: none;
+               margin-left: 1vw;
+               color: white;
+               padding: 15px 32px;
+               text-align: center;
+               text-decoration: none;
+               display: inline-block;
+               font-size: 16px;
+            }
          }
          .wit-results {
             display: flex;
@@ -29,14 +64,26 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgb(184, 184, 226);
+            border-style: groove;
             .wit-text {
                display: flex;
+               flex-direction: column;
                align-items:center;
                justify-content: flex-end;
                .results-text {
                   padding: 1em;
                }
+            }
+            .button-save {
+               background-color: #4CAF50;; /* Green */
+               border: none;
+               margin-left: 1vw;
+               color: white;
+               padding: 15px 32px;
+               text-align: center;
+               text-decoration: none;
+               display: inline-block;
+               font-size: 16px;
             }
          }
       }

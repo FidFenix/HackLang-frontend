@@ -1,7 +1,40 @@
 .directory-container {
-   width: 60%;
    display: flex;
+   flex-direction: column;
    align-items: center;
    justify-content: center;
    flex-wrap: wrap;
+   .create-group-button{
+      width: 60%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      .create-group {
+         background-color: #008CBA; /* Green */
+         border: none;
+         color: white;
+         margin-left: 1vw;
+         padding: 15px 32px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 16px;
+      }
+   }
+   .create-new-group {
+      margin-top: 4vh;
+      .button-create-group{
+         margin-top: 2vh;
+         background-color: #008CBA; /* Green */
+         border: none;
+         color: white;
+         padding: 15px 32px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 16px;
+      }
+   }
 }

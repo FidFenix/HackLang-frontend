@@ -53,21 +53,21 @@
         -o-transform: rotate(2deg);
            transform: rotate(2deg);
 }
-p {
+.notepad p {
    color: #333;
    font: 16px/24px serif;
    margin-bottom: 24px;
 }
-p:first-child:first-line {
+.notepad p:first-child:first-line {
    font-variant: small-caps;
 }
-p:first-child:first-letter {
+.notepad p:first-child:first-letter {
    color: #444;
    float: left;
    font: bold 48px/48px UnifrakturCook, Baskerville, 'Goudy Old Style', Palatino, 'Book Antiqua', serif;
    padding-right: 12px;
 }
-ul {
+.notepad ul {
    color: #333;
    font: italic 16px/24px serif;
    line-height: 24px;
